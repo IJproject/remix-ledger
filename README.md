@@ -2,6 +2,8 @@
 
 A minimal Remix application starter with a home page.
 
+ref: https://docs.remix.run/
+
 ## Starter Shape
 
 - `app/actions/controller.tsx` owns the top-level route actions.
