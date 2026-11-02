@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ledger
+      POSTGRES_PASSWORD: ledger
+      POSTGRES_DB: ledger
+    ports:
+      # 5432 は他プロジェクトの Postgres と衝突しやすいので、ホスト側は 54320 にする
+      - '54320:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./app/external/db/docker-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ledger -d ledger']
+      interval: 2s
+      timeout: 5s
+      retries: 15
+
+volumes:
+  db-data:
