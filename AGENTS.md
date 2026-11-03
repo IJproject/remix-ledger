@@ -15,6 +15,7 @@ cp .env.example .env
 npm run db:up        # PostgreSQL を起動（localhost:54320）
 npm run db:status
 npm run db:migrate
+npm run db:seed      # 動作確認用の勘定科目を投入（開発用 DB のみ）
 npm run db:down
 ```
 

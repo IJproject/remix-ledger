@@ -2,7 +2,8 @@
   "$schema": "./node_modules/remix/schema/remix.json",
   "db": {
     "adapter": { "type": "postgres", "connectionString": { "env": "DATABASE_URL" } },
-    "migrations": { "directory": "./app/external/db/migrations" }
+    "migrations": { "directory": "./app/external/db/migrations" },
+    "seed": "./app/external/db/seed.sql"
   },
   "test": {
     "setup": "./test-setup.ts"
