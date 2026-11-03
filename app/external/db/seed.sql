@@ -1,5 +1,5 @@
 -- 開発環境の動作確認用データ（npm run db:seed）。本番・テストには入れない
--- 立替精算（社員が立て替えた経費を後で払う）と仮払精算（先に渡して後で精算する）を試せる最小限の科目
+-- 立替精算（社員が立て替えた経費を後で払う）と仮払精算（先に渡して後で精算する）を試せる最小限のマスタ
 -- 何度流しても同じ結果になるよう、登録済みのコードは飛ばす
 insert into accounts (code, name) values
   ('1110', '現金'),
@@ -12,4 +12,12 @@ insert into accounts (code, name) values
   ('6130', '接待交際費'),
   ('6140', '消耗品費'),
   ('6150', '通信費')
+on conflict (code) do nothing;
+
+-- 立替精算の申請元として使う部門
+insert into departments (code, name) values
+  ('100', '経営企画部'),
+  ('200', '営業部'),
+  ('300', '開発部'),
+  ('400', '管理部')
 on conflict (code) do nothing;
