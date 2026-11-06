@@ -12,6 +12,11 @@
     "db:status": "node --env-file-if-exists=.env node_modules/.bin/remix db status",
     "db:migrate": "node --env-file-if-exists=.env node_modules/.bin/remix db migrate",
     "db:seed": "node --env-file-if-exists=.env node_modules/.bin/remix db seed",
+    "css:build": "tailwindcss -i ./app/styles/app.css -o ./public/app.css --minify",
+    "css:watch": "tailwindcss -i ./app/styles/app.css -o ./public/app.css --watch",
+    "predev": "npm run css:build",
+    "prehmr": "npm run css:build",
+    "prestart": "npm run css:build",
     "typecheck": "tsc --noEmit"
   },
   "engines": {
@@ -22,8 +27,10 @@
     "remix": "^3.0.0-rc.5"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.3.4",
     "@types/node": "latest",
     "@types/pg": "^8.23.1",
+    "tailwindcss": "^4.3.4",
     "typescript": "latest"
   }
 }

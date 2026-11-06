@@ -2,3 +2,5 @@ node_modules/
 tmp/
 .DS_Store
 .env
+# Tailwind CLI の生成物（npm run css:build）
+/public/app.css

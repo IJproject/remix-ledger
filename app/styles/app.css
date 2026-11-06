@@ -1,0 +1,6 @@
+/* Tailwind の入力ファイル。npm run css:build / css:watch で public/app.css に書き出す */
+
+/* Remix の css() のスタイル（rmx レイヤー）より、Tailwind のユーティリティを優先する */
+@layer theme, base, rmx, components, utilities;
+
+@import "tailwindcss";
