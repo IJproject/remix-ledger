@@ -5,6 +5,7 @@ import { staticFiles } from 'remix/middleware/static'
 
 import controller from './actions/controller.tsx'
 import accountsController from './actions/settings/accounts/controller.tsx'
+import departmentsController from './actions/settings/departments/controller.tsx'
 import { assets } from './assets.ts'
 import { loadDatabase } from './middleware/database.ts'
 import { routes } from './routes.ts'
@@ -26,3 +27,4 @@ export const router = createRouter<AppContext>({
 
 router.map(routes, controller)
 router.map(routes.settings.accounts, accountsController)
+router.map(routes.settings.departments, departmentsController)

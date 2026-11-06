@@ -11,5 +11,12 @@ export const routes = route({
       edit: get('/:id/edit'),
       update: post('/:id/edit'),
     }),
+    departments: route('/settings/departments', {
+      index: get('/'),
+      new: get('/new'),
+      create: post('/new'),
+      edit: get('/:id/edit'),
+      update: post('/:id/edit'),
+    }),
   },
 })

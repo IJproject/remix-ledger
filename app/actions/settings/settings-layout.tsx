@@ -6,7 +6,7 @@ import { Document } from '../document.tsx'
 
 interface SettingsLayoutProps {
   title: string
-  current: 'accounts'
+  current: 'accounts' | 'departments'
   children: RemixNode
 }
 
@@ -20,6 +20,7 @@ export function SettingsLayout(handle: Handle<SettingsLayoutProps>) {
             <h1>設定</h1>
             <nav aria-label="設定">
               <a href={routes.settings.accounts.index.href()} aria-current={current === 'accounts' ? 'page' : undefined}>勘定科目</a>
+              <a href={routes.settings.departments.index.href()} aria-current={current === 'departments' ? 'page' : undefined}>部門</a>
             </nav>
           </header>
           <div mix={css({ marginTop: '32px' })}>{children}</div>
