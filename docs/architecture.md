@@ -23,6 +23,7 @@ app/
 ├─ routes.ts                  ルートの定義。サーバーとブラウザの両方から使い、型付きの href を作る
 ├─ router.ts                  ミドルウェアの設定と、ルートと controller の対応づけ
 ├─ assets.ts                  ブラウザ用 JS/CSS の配信設定
+├─ app.css                    Tailwind の入力ファイル（public/app.css に書き出す）
 ├─ domain/
 │  ├─ building-blocks.ts      Primitive（ブランド型）、Result、State（ワークフローの状態）、NonEmptyArray
 │  └─ <concept>/              概念ごと（例: account）
@@ -52,10 +53,9 @@ app/
 │  └─ settings/               マスタメンテナンス画面（/settings/<resource>）
 │     ├─ settings-layout.tsx  設定画面の共通レイアウト
 │     └─ <resource>/          マスタごとの controller・画面・テスト（例: accounts/）
-├─ styles/app.css             Tailwind の入力ファイル（public/app.css に書き出す）
 ├─ middleware/database.ts     DB を context.db として渡す
 ├─ lib/                       ドメインに依存しない汎用コード
-└─ components/                ドメインに依存しない共通 UI
+└─ ui/                        複数のルートで使う画面部品・レイアウト
 public/                       そのまま配信する静的ファイル
 compose.yaml                  開発・テスト用の PostgreSQL（ledger / ledger_test、ポート 54320）
 test-setup.ts                 テスト開始時にテスト用 DB へマイグレーションを流す
@@ -68,7 +68,7 @@ test-setup.ts                 テスト開始時にテスト用 DB へマイグ�
 - ワークフローの失敗は `NonEmptyArray<...Error>` で返す（理由のない失敗を型で作れなくする）
 - スキーマの変更は、番号付きのマイグレーション（`app/external/db/migrations/<番号>_<name>/up.sql` と `down.sql`）を新しく足す。適用済みのマイグレーションは書き換えない
 - 列を足したら、マイグレーションと `tables.ts` の両方を直す（自動では同期しない）
-- スタイルは Tailwind のクラスで書く。`public/app.css` は Tailwind CLI の生成物（git 管理外）なので直接編集しない。`app/styles/app.css` でレイヤー順を宣言しており、Tailwind のユーティリティは Remix の `css()` より優先される
+- スタイルは Tailwind のクラスで書く。`public/app.css` は Tailwind CLI の生成物（git 管理外）なので直接編集しない。`app/app.css` でレイヤー順を宣言しており、Tailwind のユーティリティは Remix の `css()` より優先される
 - テストは `NODE_ENV=test` で `TEST_DATABASE_URL`（`ledger_test`）に接続する。開発用 DB には触れない
 
 ## 機能を追加するとき
@@ -79,5 +79,5 @@ test-setup.ts                 テスト開始時にテスト用 DB へマイグ�
 2. テーブルが要るなら、マイグレーションと `app/external/db/tables.ts` を足す
 3. `app/external/db/adapters/<concept>.ts` にポートの実装を書く
 4. `app/routes.ts` にルートを足し、`app/actions/<route-key>/controller.tsx` を作って `app/router.ts` で `router.map()` する
-5. 画面は `app/actions/<route-key>/` に置く。複数の画面で使う、ドメインに依存しない UI は `app/components/` に置く
+5. 画面は `app/actions/<route-key>/` に置く。複数のルートで使う画面部品・レイアウトは `app/ui/` に置く
 6. controller のテストは `router.fetch` でミドルウェアごと動かして書く

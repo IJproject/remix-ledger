@@ -14,8 +14,8 @@
     "db:status": "node --env-file-if-exists=.env node_modules/.bin/remix db status",
     "db:migrate": "node --env-file-if-exists=.env node_modules/.bin/remix db migrate",
     "db:seed": "node --env-file-if-exists=.env node_modules/.bin/remix db seed",
-    "css:build": "tailwindcss -i ./app/styles/app.css -o ./public/app.css --minify",
-    "css:watch": "tailwindcss -i ./app/styles/app.css -o ./public/app.css --watch",
+    "css:build": "tailwindcss -i ./app/app.css -o ./public/app.css --minify",
+    "css:watch": "tailwindcss -i ./app/app.css -o ./public/app.css --watch",
     "prestart": "npm run css:build",
     "typecheck": "tsc --noEmit"
   },
