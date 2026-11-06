@@ -4,40 +4,14 @@ This app was scaffolded with `remix new`. Use these conventions when continuing 
 
 ## Commands
 
-```sh
-npm i
-npm run dev
-npm run hmr
-npm run start
-npm test
-npm run typecheck
-cp .env.example .env
-npm run db:up        # PostgreSQL を起動（localhost:54320）
-npm run db:status
-npm run db:migrate
-npm run db:seed      # 動作確認用の勘定科目・部門を投入（開発用 DB のみ）
-npm run db:down
-```
+Setup steps are in `README.md`. See the `scripts` in `package.json` for all commands (`npm test`, `npm run typecheck`, `npm run db:*`, ...).
 
 Use `npm run hmr` for live server and browser updates; `npm run dev` only watches and restarts the server. Both also run the Tailwind CSS watcher (`css:watch`) through `concurrently`. `npm run start` builds the CSS once (`prestart`) and runs in production mode without any other build step.
+
+## Architecture
+
+Read `docs/architecture.md` before adding or moving code. It defines the layers (`app/domain/`, `app/external/`, `app/actions/`), which layer may import which, the directory layout, and the steps for adding a feature. Use the account master (`app/domain/account/`, `app/external/db/adapters/account.ts`, `app/actions/settings/accounts/`) as the reference implementation.
 
 ## Building Features
 
 Refer to ./.agents/skills/remix/SKILL.md for the Remix mental model and how to find guides and API READMEs through `node_modules/remix/INDEX.md`.
-
-## Starter Layout
-
-- `app/routes.ts` defines the shared route contract used by server and browser modules for type-safe hrefs
-- `app/router.ts` wires routes to controllers and installs the standard Remix component renderer used by actions
-- `app/external/<service>/` holds clients for external services (database, APIs). `app/external/db/` contains the PostgreSQL client, migrations, and Docker init SQL
-- `app/external/db/client.ts` connects to PostgreSQL (`DATABASE_URL`, or `TEST_DATABASE_URL` under `NODE_ENV=test`) and runs migrations from `app/external/db/migrations/` at server start
-- `app/middleware/database.ts` exposes the shared database to actions as `context.db`
-- `compose.yaml` runs PostgreSQL for development and tests (`ledger` / `ledger_test` on port 54320)
-- Add schema changes as new numbered migration directories (`app/external/db/migrations/0001_name/up.sql` + `down.sql`); never edit an applied migration
-- Put top-level route actions in `app/actions/controller.tsx`; add `app/actions/<route-key>/controller.tsx` for nested route maps. `app/actions/controller.test.ts` is the root controller's router smoke test
-- `app/actions/home-page.tsx` and `app/actions/document.tsx` render the route-owned starter UI
-- `app/actions/public/` contains the browser runtime entry and interactive prompt button
-- `app/assets.ts` owns the server-side asset pipeline used by the asset route and render middleware
-- Root `public/` contains static files served unchanged from the app root
-
-This starter intentionally begins small; add directories like `app/data/` and `app/ui/` only when you need them.
