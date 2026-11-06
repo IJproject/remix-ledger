@@ -16,7 +16,7 @@ npm i
 cp .env.example .env
 npm run db:up        # PostgreSQL を Docker で起動（localhost:54320）
 npm run db:migrate
-npm run db:seed      # 動作確認用の勘定科目・部門を投入（任意）
+npm run db:seed      # 動作確認用のマスタデータを投入（任意）
 npm run dev          # http://localhost:44100（Tailwind の CSS の監視も一緒に起動する）
 ```
 

@@ -16,6 +16,8 @@
 
 ## ディレクトリ構成
 
+機能を足してもこの図を書き換えずに済むよう、個別の機能名は並べず `<concept>` などのパターンで書く。具体例は、見本の実装である勘定科目（`account`）だけを挙げる。
+
 ```
 app/
 ├─ routes.ts                  ルートの定義。サーバーとブラウザの両方から使い、型付きの href を作る
@@ -46,9 +48,10 @@ app/
 │  ├─ document.tsx            全ページ共通の HTML の外枠（<head> とブラウザ用 JS の読み込み）
 │  ├─ home-page.tsx           ホーム画面（スターターのまま）
 │  ├─ public/                 ブラウザで動くコードの入口
-│  └─ settings/               マスタメンテナンス画面（/settings/...）
+│  ├─ <route-key>/            ルートのまとまりごとの controller・画面・テスト
+│  └─ settings/               マスタメンテナンス画面（/settings/<resource>）
 │     ├─ settings-layout.tsx  設定画面の共通レイアウト
-│     └─ accounts/            勘定科目（controller・画面・テスト）
+│     └─ <resource>/          マスタごとの controller・画面・テスト（例: accounts/）
 ├─ styles/app.css             Tailwind の入力ファイル（public/app.css に書き出す）
 ├─ middleware/database.ts     DB を context.db として渡す
 ├─ lib/                       ドメインに依存しない汎用コード
@@ -63,7 +66,7 @@ test-setup.ts                 テスト開始時にテスト用 DB へマイグ�
 - ブラウザで動くコードと、そこから import するものは、すべて `public/` という名前のディレクトリの下に置く（`app/assets.ts` の `allowFiles` で、それ以外はブラウザに配信されない）
 - ワークフローの状態（例: `ValidatedAccount`）は `State<'Tag', {...}>` で定義する。TypeScript は形が同じなら代入できてしまう（構造的部分型）ので、名前を付けて別物にする。キーの symbol を export していないため、オブジェクトリテラルでは作れない。作るのは、その状態に進めるステップ（例: `validateAccount`）の中の `as` だけにする。オブジェクトに `Primitive` を使わないのは、`__brand` が普通の文字列キーで、リテラルで偽造できてしまうため
 - ワークフローの失敗は `NonEmptyArray<...Error>` で返す（理由のない失敗を型で作れなくする）
-- スキーマの変更は、番号付きのマイグレーション（`app/external/db/migrations/0003_name/up.sql` と `down.sql`）を新しく足す。適用済みのマイグレーションは書き換えない
+- スキーマの変更は、番号付きのマイグレーション（`app/external/db/migrations/<番号>_<name>/up.sql` と `down.sql`）を新しく足す。適用済みのマイグレーションは書き換えない
 - 列を足したら、マイグレーションと `tables.ts` の両方を直す（自動では同期しない）
 - スタイルは Tailwind のクラスで書く。`public/app.css` は Tailwind CLI の生成物（git 管理外）なので直接編集しない。`app/styles/app.css` でレイヤー順を宣言しており、Tailwind のユーティリティは Remix の `css()` より優先される
 - テストは `NODE_ENV=test` で `TEST_DATABASE_URL`（`ledger_test`）に接続する。開発用 DB には触れない
