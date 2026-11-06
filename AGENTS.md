@@ -19,7 +19,7 @@ npm run db:seed      # 動作確認用の勘定科目・部門を投入（開発
 npm run db:down
 ```
 
-Use `npm run hmr` for live server and browser updates; `npm run dev` only watches and restarts the server. `npm run start` runs in production mode without a separate build step.
+Use `npm run hmr` for live server and browser updates; `npm run dev` only watches and restarts the server. Both also run the Tailwind CSS watcher (`css:watch`) through `concurrently`. `npm run start` builds the CSS once (`prestart`) and runs in production mode without any other build step.
 
 ## Building Features
 

@@ -31,8 +31,8 @@ ref: https://docs.remix.run/
 ```sh
 npm i
 npm run dev
-npm run css:watch    # Tailwind の CSS を監視して作り直す（dev と別のターミナルで起動）
-npm run css:build    # Tailwind の CSS を1回生成する（dev / hmr / start の前に自動で実行される）
+npm run css:watch    # Tailwind の CSS を監視して作り直す（dev / hmr が一緒に起動する）
+npm run css:build    # Tailwind の CSS を1回生成する（start の前に自動で実行される）
 npm run hmr
 npm run start
 npm test
